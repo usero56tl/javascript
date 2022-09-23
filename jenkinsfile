@@ -1,0 +1,12 @@
+node {
+    def app
+    stage('Clone') {
+        checkout scm
+    }
+    stage('Build') {
+        app = docker.build("usero/node")
+    }
+    stage('Test image') {
+        withDockerContainer("usero/node"){ sh "echo 'hello world'" }
+    }
+}
